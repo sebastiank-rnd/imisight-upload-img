@@ -6,24 +6,11 @@ export const MENU_ITEMS : NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true
-  },
-  {
+  }, {
     title: 'Upload',
     icon: 'nb-home',
     link: '/pages/upload',
     home: true
-  },{
-    title: 'Forms',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Form Inputs',
-        link: '/pages/forms/inputs'
-      }, {
-        title: 'Form Layouts',
-        link: '/pages/forms/layouts'
-      }
-    ]
   }, {
     title: 'Auth',
     icon: 'nb-locked',

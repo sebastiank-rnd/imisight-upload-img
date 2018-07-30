@@ -18,9 +18,6 @@ const routes : Routes = [
         path: 'upload',
         component: ImageDataUploadComponent
       }, {
-        path: 'forms',
-        loadChildren: './forms/forms.module#FormsModule'
-      }, {
         path: 'miscellaneous',
         loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule'
       }, {
