@@ -6,7 +6,13 @@ export const MENU_ITEMS : NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true
-  }, {
+  },
+  {
+    title: 'Upload',
+    icon: 'nb-home',
+    link: '/pages/upload',
+    home: true
+  },{
     title: 'Forms',
     icon: 'nb-compose',
     children: [
@@ -16,15 +22,6 @@ export const MENU_ITEMS : NbMenuItem[] = [
       }, {
         title: 'Form Layouts',
         link: '/pages/forms/layouts'
-      }
-    ]
-  }, {
-    title: 'Miscellaneous',
-    icon: 'nb-shuffle',
-    children: [
-      {
-        title: '404',
-        link: '/pages/miscellaneous/404'
       }
     ]
   }, {

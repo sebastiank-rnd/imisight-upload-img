@@ -1,0 +1,99 @@
+<div class="container">
+    <h2>Upload New Image Data</h2>
+    <h4 class="info-text">Fields marked with a
+      <span class="star">*</span> are required.</h4>
+    <form novalidate
+          [formGroup]="dataForm"
+          (ngSubmit)="performUpload($event)">
+
+      <div class="form-group">
+        <label for="geo-image">Imagefile (GeoTIF)
+          <span class="star">*</span>
+        </label>
+        <input type="file"
+               id="geo-image"
+               class="form-control"
+               formControlName="geoFile"
+               (change)="updateGeoFile($event)"
+               [formControl]="dataForm.controls['geoFile']"
+               aria-required="true">
+      </div>
+      <div class="form-group">
+        <label for="geo-image-text">Image Filename
+          <span class="star">*</span>
+        </label>
+        <input type="text"
+               id="geo-image-text"
+               class="form-control"
+               formControlName="fileName">
+      </div>
+
+      <div class="form-group">
+        <label for="capture-date">Capture Date
+          <span class="star">*</span>
+        </label>
+        <input type="date"
+               id="capture-date"
+               class="form-control"
+               formControlName="timestamp"
+               [formControl]="dataForm.controls['timestamp']"
+               aria-required="true">
+      </div>
+
+      <div class="form-group">
+        <label for="image-data-type">Type
+          <span class="star">*</span>
+        </label>
+        <select id="image-data-type"
+                class="form-control"
+                formControlName="dataType"
+                [formControl]="dataForm.controls['dataType']"
+                aria-required="true">
+          <option value="orthophoto">Orthophoto</option>
+          <option value="dtm">DTM</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="usage-type">Legal Usage
+          <span class="star">*</span>
+        </label>
+        <select id="usage-type"
+                class="form-control"
+                formControlName="legalUsage"
+                [formControl]="dataForm.controls['legalUsage']"
+                aria-required="true">
+          <option value="free">Free</option>
+          <option value="transpetro">Transpetro</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="sensor-name">Sensor Name
+          <span class="star">*</span>
+        </label>
+        <input type="text"
+               id="sensor-name"
+               class="form-control"
+               formControlName="sensorName"
+               [formControl]="dataForm.controls['sensorName']"
+               aria-required="true">
+      </div>
+
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text"
+               id="company"
+               class="form-control"
+               formControlName="company"
+               [formControl]="dataForm.controls['company']">
+      </div>
+
+
+      <button type="submit"
+              class="btn btn-primary"
+              [disabled]="!dataForm.valid || isUploading">{{isUploading?"Uploading":"Upload"}}</button>
+
+    </form>
+  </div>
