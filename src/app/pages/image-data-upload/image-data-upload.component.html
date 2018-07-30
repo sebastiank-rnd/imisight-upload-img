@@ -3,7 +3,7 @@
       <nb-card>
          <nb-card-header>Upload New Image Data</nb-card-header>
          <nb-card-body>
-            <form>
+            <form novalidate [formGroup]="dataForm" (ngSubmit)="performUpload($event)">
                <div class="form-group row">
                   <label for="geo-image" class="col-sm-3 col-form-label">Imagefile (GeoTIF)</label>
                   <div class="col-sm-9">
