@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { MENU_ITEMS } from './pages-menu';
+import { AuthService } from './../@auth/auth.service';
+import { NbMenuItem } from '../../../node_modules/@nebular/theme';
+
 
 @Component({
   selector: 'ngx-pages',
@@ -11,7 +15,29 @@ import { MENU_ITEMS } from './pages-menu';
     </ngx-sample-layout>
   `,
 })
-export class PagesComponent {
-
+export class PagesComponent implements OnInit, OnDestroy {
+  loggedInSub: Subscription;
   menu = MENU_ITEMS;
+
+  constructor(public auth : AuthService) {
+  }
+
+  ngOnInit() {
+    this.loggedInSub = this.auth.loggedIn$.subscribe((loggedIn) => {
+      this.menu = MENU_ITEMS.map<NbMenuItem>(item => {
+        if (item.title==='Auth') {
+          return {
+            ... item,
+            children: item.children.filter(child => loggedIn ? child.title==='Logout' : child.title==='Login')
+          };
+        }
+
+        return item;
+      })
+    });
+  }
+
+  ngOnDestroy() {
+    this.loggedInSub.unsubscribe();
+  }
 }

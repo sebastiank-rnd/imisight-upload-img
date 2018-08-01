@@ -1,22 +1,17 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-
-import { AuthComponent } from './@auth/auth.component';
-
+import { CallbackComponent } from './@auth/callback/callback.component';
 
 const routes: Routes = [
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
-  {
-    path: 'auth',
-    component: AuthComponent,
-  },
-  { path: 'callback', redirectTo: 'auth/callback', pathMatch: 'full' },
+  { path: 'auth', loadChildren: 'app/@auth/auth.module#AuthModule' },
+  { path: 'callback', component: CallbackComponent },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];
 
 const config: ExtraOptions = {
-  useHash: true,
+  useHash: false,
 };
 
 @NgModule({

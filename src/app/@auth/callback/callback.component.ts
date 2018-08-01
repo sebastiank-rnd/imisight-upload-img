@@ -13,13 +13,19 @@ export class CallbackComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService, private router: Router) {
     // Parse authentication hash
-    auth.handleLoginCallback();
+    this.auth.handleLoginCallback();
   }
 
   ngOnInit() {
-    this.loggedInSub = this.auth.loggedIn$.subscribe(
-      // loggedIn => loggedIn ? this.router.navigate(['/upload']) : null
-    );
+    this.loggedInSub = this.auth.loggedIn$.subscribe(loggedIn => {
+      return this.router.navigate(['/pages/dashboard'])
+
+      //  if (loggedIn) {
+      //    return this.router.navigate(['/pages/dashboard'])
+      //  } else {
+      //    return null;
+      //  }
+    });
   }
 
   ngOnDestroy() {

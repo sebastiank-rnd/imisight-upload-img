@@ -1,5 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 
+import { AuthService } from './../../@auth/auth.service';
+
 interface CardSettings {
   title: string;
   iconClass: string;
@@ -13,9 +15,7 @@ interface CardSettings {
 })
 export class DashboardComponent implements OnDestroy {
 
-  constructor() {
-  }
+  constructor(public auth : AuthService) {}
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 }

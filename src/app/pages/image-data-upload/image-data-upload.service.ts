@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ImageDataUploadService {
-  private baseUrl = `${environment.gatewayUrl}`;
+  private baseUrl = `${environment.gatewayUrl}/a3`;
 
   constructor(private httpClient: HttpClient) {  }
 

@@ -11,7 +11,8 @@ export const MENU_ITEMS : NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/upload',
     home: true
-  }, {
+  },
+  {
     title: 'Auth',
     icon: 'nb-locked',
     children: [
@@ -19,6 +20,10 @@ export const MENU_ITEMS : NbMenuItem[] = [
         title: 'Login',
         link: '/auth/login'
       },
+      {
+        title: 'Logout',
+        link: '/auth/logout'
+      },
     ]
-  }
+  },
 ];

@@ -8,10 +8,9 @@ import { AuthService } from './auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(public auth: AuthService) {
-    // Parse authentication hash
+    this.auth.login();
   }
 
   ngOnInit() {
-    this.auth.login();
   }
 }
