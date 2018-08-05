@@ -4,6 +4,9 @@ import * as auth0 from 'auth0-js';
 
 import {environment} from './../../environments/environment';
 
+// import { IUser } from './IUser';
+// import { Profile } from '../../../node_modules/@types/selenium-webdriver/firefox';
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
   // Create Auth0 web auth instance @TODO: Update AUTH_CONFIG and remove .example
@@ -20,6 +23,8 @@ export class AuthService {
   // Create a stream of logged in status to communicate throughout app
   loggedIn : boolean = false;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
+  profile$ = new BehaviorSubject<any>(null);
+  // profile$ = this._profile.asObservable();
 
   constructor() {
     // You can restore an unexpired authentication session on init by using the
@@ -27,6 +32,18 @@ export class AuthService {
     // https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-
     // tokens
     this._Auth0.checkSession({ audience: environment.auth0.audience }, this.handleAuthResult.bind(this));
+    this.loadProfile();
+  }
+
+  private loadProfile() {
+    const profile = localStorage.getItem("profile");
+    if (profile) {
+      try {
+        this.profile$.next(JSON.parse(profile));
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   private _setLoggedIn(value : boolean) {
@@ -43,8 +60,9 @@ export class AuthService {
   handleAuthResult(err, authResult) {
     if (authResult && authResult.accessToken) {
       window.location.hash = '';
+      this._setLoggedIn(true);
+      this.getUserInfo(authResult);
       this._setSession(authResult);
-      // this.getUserInfo(authResult);
     } else if (err) {
       console.error(`Error: ${err.error}`);
     }
@@ -59,7 +77,14 @@ export class AuthService {
   getUserInfo(authResult) {
     // Use access token to retrieve user's profile and set session
     this._Auth0.client.userInfo(authResult.accessToken, (err, profile) => {
-      });
+      if (err) {
+        console.error(`Error: ${err.error}`);
+      } else if (profile) {
+        localStorage.setItem("profile",JSON.stringify(profile));
+        this.profile$.next(profile);
+        return profile;
+      }
+    });
   }
 
   private _setSession(authResult) {
@@ -67,13 +92,14 @@ export class AuthService {
     localStorage.setItem('expires_at', (authResult.expiresIn * 1000 + Date.now()).toString());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
-    this._setLoggedIn(true);
   }
 
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem("profile");
+    this.profile$.next(null);
     this._setLoggedIn(false);
     this._Auth0.logout({returnTo: environment.auth0.home, clientID: environment.auth0.clientId});
   }
@@ -88,6 +114,10 @@ export class AuthService {
 
   get accessToken() : string {
     return localStorage.getItem('access_token');
+  }
+
+  get profile() {
+    return this.profile$.getValue();
   }
 
   get authenticated() : boolean {

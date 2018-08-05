@@ -43,7 +43,10 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+import { AuthModule } from './../@auth/auth.module';
+
+
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, AuthModule];
 
 const NB_MODULES = [
   NbCardModule,

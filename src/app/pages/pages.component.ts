@@ -24,6 +24,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loggedInSub = this.auth.loggedIn$.subscribe((loggedIn) => {
+      console.log(`PagesComponent: ${!loggedIn ? 'not ': ''} logged in.`);
       this.menu = MENU_ITEMS.map<NbMenuItem>(item => {
         if (item.title==='Auth') {
           return {
