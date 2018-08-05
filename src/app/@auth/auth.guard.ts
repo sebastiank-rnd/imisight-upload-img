@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     if (this.auth.authenticated) {
       return true;
     }
-    this.router.navigate(['/']);
+    this.router.navigate(['/']); // TBD: change to authError page!
     return false;
   }
 

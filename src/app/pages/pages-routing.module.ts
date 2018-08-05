@@ -6,6 +6,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { ImageDataUploadComponent } from './image-data-upload/image-data-upload.component';
 
+import { AuthGuard } from './../@auth/auth.guard';
+
 const routes : Routes = [
   {
     path: '',
@@ -16,7 +18,10 @@ const routes : Routes = [
         component: DashboardComponent
       }, {
         path: 'upload',
-        component: ImageDataUploadComponent
+        component: ImageDataUploadComponent,
+        canActivate: [
+          AuthGuard
+        ],
       }, {
         path: 'miscellaneous',
         loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule'
@@ -34,6 +39,9 @@ const routes : Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  providers: [
+    AuthGuard
+  ],
   exports: [RouterModule]
 })
 export class PagesRoutingModule {}
