@@ -5,7 +5,6 @@ import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
-// import { AuthModule } from '../@auth/auth.module';
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
@@ -16,7 +15,6 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
 
 export const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
-  // ...AuthModule.forRoot().providers,
 
   NbSecurityModule.forRoot({
     accessControl: {
@@ -40,9 +38,6 @@ export const NB_CORE_PROVIDERS = [
 @NgModule({
   imports: [
     CommonModule,
-  ],
-  exports: [
-    // AuthModule,
   ],
   declarations: [],
 })

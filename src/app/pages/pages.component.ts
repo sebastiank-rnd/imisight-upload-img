@@ -21,12 +21,12 @@ export class PagesComponent implements OnInit, OnDestroy {
   menu = MENU_ITEMS;
   menu$ : Observable<NbMenuItem[]>
 
-  constructor(public auth : AuthService) {
+  constructor(private _auth : AuthService) {
   }
 
   ngOnInit() {
 
-    const loggedin$ = this.auth.loggedIn$.pipe(
+    const loggedin$ = this._auth.loggedIn$.pipe(
       filter(loggedIn => loggedIn),
       map(() => MENU_ITEMS
         .map<NbMenuItem>(item => {
@@ -42,7 +42,7 @@ export class PagesComponent implements OnInit, OnDestroy {
       )
     );
 
-   const loggedOut$ = this.auth.loggedIn$.pipe(
+   const loggedOut$ = this._auth.loggedIn$.pipe(
       filter(loggedIn => !loggedIn),
       map(() => MENU_ITEMS
         .filter(item => item.title!=='Upload')

@@ -21,8 +21,8 @@ export class AuthService {
   });
 
   // Create a stream of logged in status to communicate throughout app
-  public loggedIn$ = new BehaviorSubject<boolean>(false);
-  public profile$ = new BehaviorSubject<any>(null);
+  private _loggedIn$ = new BehaviorSubject<boolean>(false);
+  private _profile$ = new BehaviorSubject<any>(null);
   // profile$ = this._profile.asObservable();
 
   constructor() {
@@ -39,7 +39,7 @@ export class AuthService {
     const profile = localStorage.getItem("profile");
     if (profile) {
       try {
-        this.profile$.next(JSON.parse(profile));
+        this._profile$.next(JSON.parse(profile));
       } catch (err) {
         console.log(err);
       }
@@ -49,7 +49,7 @@ export class AuthService {
   private _setProfile(profile) {
     // Save session data
     try {
-      this.profile$.next(profile);
+      this._profile$.next(profile);
       localStorage.setItem("profile",JSON.stringify(profile));
     } catch (err) {
       console.error(`Error: ${err.error}`);
@@ -58,7 +58,7 @@ export class AuthService {
 
   private _setLoggedIn(value : boolean) {
     // Update login status subject
-    this.loggedIn$.next(value);
+    this._loggedIn$.next(value);
   }
 
   login() {
@@ -71,7 +71,7 @@ export class AuthService {
       console.error(`Error: ${err.error}`);
     }
     if (authResult && authResult.accessToken) {
-      // window.location.hash = '';
+      window.location.hash = '';
       this.getUserInfo(authResult);
       this._setSession(authResult);
       this._setLoggedIn(true);
@@ -109,7 +109,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem("profile");
-    this.profile$.next(null);
+    this._profile$.next(null);
     this._setLoggedIn(false);
     this._Auth0.logout({returnTo: environment.auth0.home, clientID: environment.auth0.clientId});
   }
@@ -127,14 +127,19 @@ export class AuthService {
   }
 
   get profile() {
-    return this.profile$.getValue();
+    return this._profile$.getValue();
+  }
+
+  get loggedIn$() {
+    return this._loggedIn$.asObservable();
+  }
+
+  get profile$() {
+    return this._profile$.asObservable();
   }
 
   get authenticated() : boolean {
-    // Check if current date is greater than expiration --???and user is currently
-    // logged in???--
-    // const OK: boolean = (Date.now() < this.expiresAt); // && this.loggedIn;
-    const OK = this.loggedIn$.getValue();
+    const OK = this._loggedIn$.getValue();
     return OK;
   }
 
