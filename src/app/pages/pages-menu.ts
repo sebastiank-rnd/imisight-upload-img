@@ -4,12 +4,12 @@ export const MENU_ITEMS : NbMenuItem[] = [
   {
     title: 'Dashboard',
     icon: 'nb-home',
-    link: '/pages/dashboard',
+    link: '/dashboard',
     home: true
   }, {
     title: 'Upload',
     icon: 'nb-home',
-    link: '/pages/upload',
+    link: '/upload',
     home: true
   },
   {
@@ -18,12 +18,13 @@ export const MENU_ITEMS : NbMenuItem[] = [
     children: [
       {
         title: 'Login',
-        link: '/auth/login'
+        link: '/login'
       },
       {
         title: 'Logout',
-        link: '/auth/logout'
+        link: '/logout'
       },
     ]
   },
 ];
+

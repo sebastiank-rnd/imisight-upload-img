@@ -1,13 +1,16 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 // import { ThemeModule } from '../@theme/theme.module';
 
 import { AuthService } from './auth.service';
-import { AuthRoutingModule, routedComponents } from './auth-routing.module';
 import { TokenInterceptor } from './token-interceptor';
-
+import { AuthComponent } from './auth.component';
+import { LoginComponent } from './login.component';
+import { LogoutComponent } from './logout.component';
+import { CallbackComponent } from './callback/callback.component';
 
 
 const SERVICES = [
@@ -17,11 +20,14 @@ const SERVICES = [
 @NgModule({
   imports: [
     CommonModule,
-    AuthRoutingModule,
     HttpClientModule,
+    RouterModule,
   ],
   declarations: [
-    ...routedComponents,
+    AuthComponent,
+    LoginComponent,
+    LogoutComponent,
+    CallbackComponent,
   ],
   providers: [
     ...SERVICES,

@@ -7,15 +7,17 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 
+import { ThemeModule } from './@theme/theme.module';
 import { AuthModule } from './@auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ThemeModule } from './@theme/theme.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { ImageDataUploadModule } from './pages/image-data-upload/image-data-upload.module';
 import { MiscellaneousModule } from './pages/miscellaneous/miscellaneous.module';
 
 @NgModule({
@@ -26,6 +28,8 @@ import { MiscellaneousModule } from './pages/miscellaneous/miscellaneous.module'
     HttpClientModule,
     AppRoutingModule,
 
+    DashboardModule,
+    ImageDataUploadModule,
     MiscellaneousModule,
 
     NgbModule.forRoot(),

@@ -1,12 +1,46 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CallbackComponent } from './@auth/callback/callback.component';
+
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ImageDataUploadComponent } from './pages/image-data-upload/image-data-upload.component';
 import { NotFoundComponent } from './pages/miscellaneous/not-found/not-found.component';
 
+import { AuthComponent } from './@auth/auth.component';
+import { CallbackComponent } from './@auth/callback/callback.component';
+import { LoginComponent } from './@auth/login.component';
+import { LogoutComponent } from './@auth/logout.component';
+
+
+import { AuthGuard } from './@auth/auth.guard';
+
+
 const routes: Routes = [
-  { path:'', redirectTo:'pages', pathMatch:'full'},
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
-  { path: 'auth', loadChildren: 'app/@auth/auth.module#AuthModule' },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  }, {
+    path: 'dashboard',
+    component: DashboardComponent
+  }, {
+    path: 'upload',
+    component: ImageDataUploadComponent,
+    canActivate: [
+      AuthGuard
+    ],
+  }, {
+    path: '',
+    component: AuthComponent,
+    children: [{
+      path: 'login',
+      component: LoginComponent,
+    }, {
+      path: 'logout',
+      component: LogoutComponent,
+    },
+  ],
+  },
+  // { path: 'auth', loadChildren: 'app/@auth/auth.module#AuthModule' },
   { path: 'callback', component: CallbackComponent },
   { path: '**', component:NotFoundComponent },
 ];
@@ -18,6 +52,9 @@ const config: ExtraOptions = {
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, config)],
+  providers: [
+    AuthGuard
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {
