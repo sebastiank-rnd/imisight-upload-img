@@ -17,11 +17,8 @@ import { AuthGuard } from './@auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'upload',
     pathMatch: 'full'
-  }, {
-    path: 'dashboard',
-    component: DashboardComponent
   }, {
     path: 'upload',
     component: ImageDataUploadComponent,

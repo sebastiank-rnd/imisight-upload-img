@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
    const loggedOut$ = this._auth.loggedIn$.pipe(
       filter(loggedIn => !loggedIn),
       map(() => MENU_ITEMS
-        .filter(item => item.title!=='Upload')
         .map<NbMenuItem>(item => {
           if (item.title==='Auth') {
             return {

@@ -21,7 +21,7 @@ export class CallbackComponent implements OnInit, OnDestroy {
        if (loggedIn) {
          return this.router.navigate(['/upload'])
        } else {
-        return this.router.navigate(['/dashboard'])
+        //return this.router.navigate(['/login'])
       }
     });
   }
