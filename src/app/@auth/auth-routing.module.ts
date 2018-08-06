@@ -21,7 +21,11 @@ const routes: Routes = [{
   }, {
     path: 'callback',
     component: CallbackComponent,
-  },],
+  }, {
+      path: '**',
+      redirectTo: '/',
+  },
+],
 }];
 
 @NgModule({

@@ -25,14 +25,16 @@ const routes : Routes = [
       }, {
         path: 'miscellaneous',
         loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule'
-      }, {
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
-      }, {
+      },
+       {
         path: '**',
         component: NotFoundComponent
-      }
+      },
     ]
   }
 ];

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'ngx-auth',
   template: `<router-outlet></router-outlet>`,
 })
 export class AuthComponent {

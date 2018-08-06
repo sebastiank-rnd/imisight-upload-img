@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImageDataUploadService } from './image-data-upload.service';
 
 @Component({
-  selector: 'app-image-data-upload',
+  selector: 'ngx-image-data-upload',
   templateUrl: './image-data-upload.component.html',
   styleUrls: ['./image-data-upload.component.scss']
 })

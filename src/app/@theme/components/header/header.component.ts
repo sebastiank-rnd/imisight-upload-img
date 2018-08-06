@@ -23,7 +23,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // this.user = this.auth.profile;
-    this.auth.profile$.subscribe((profile: any) => this.user = profile);
+    this.auth.profile$.subscribe((profile: any) => {
+      this.user = profile;
+    });
   }
 
   toggleSidebar(): boolean {

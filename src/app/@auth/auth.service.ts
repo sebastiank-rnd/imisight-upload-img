@@ -21,9 +21,8 @@ export class AuthService {
   });
 
   // Create a stream of logged in status to communicate throughout app
-  loggedIn : boolean = false;
-  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
-  profile$ = new BehaviorSubject<any>(null);
+  public loggedIn$ = new BehaviorSubject<boolean>(false);
+  public profile$ = new BehaviorSubject<any>(null);
   // profile$ = this._profile.asObservable();
 
   constructor() {
@@ -31,7 +30,8 @@ export class AuthService {
     // checkSession() endpoint from auth0.js:
     // https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-
     // tokens
-    this._Auth0.checkSession({ audience: environment.auth0.audience }, this.handleAuthResult.bind(this));
+    //this._Auth0.checkSession({ audience: environment.auth0.audience }, this.handleAuthResult.bind(this));
+    this._setLoggedIn((Date.now() < this.expiresAt));
     this.loadProfile();
   }
 
@@ -46,9 +46,18 @@ export class AuthService {
     }
   }
 
+  private _setProfile(profile) {
+    // Save session data
+    try {
+      this.profile$.next(profile);
+      localStorage.setItem("profile",JSON.stringify(profile));
+    } catch (err) {
+      console.error(`Error: ${err.error}`);
+    }
+  }
+
   private _setLoggedIn(value : boolean) {
     // Update login status subject
-    this.loggedIn = value;
     this.loggedIn$.next(value);
   }
 
@@ -60,13 +69,13 @@ export class AuthService {
   handleAuthResult(err, authResult) {
     if (authResult && authResult.accessToken) {
       window.location.hash = '';
-      this._setLoggedIn(true);
       this.getUserInfo(authResult);
       this._setSession(authResult);
+      this._setLoggedIn(true);
     } else if (err) {
       console.error(`Error: ${err.error}`);
+      this._setLoggedIn((Date.now() < this.expiresAt));
     }
-    this._setLoggedIn(this.authenticated);
   }
 
   handleLoginCallback() {
@@ -80,15 +89,14 @@ export class AuthService {
       if (err) {
         console.error(`Error: ${err.error}`);
       } else if (profile) {
-        localStorage.setItem("profile",JSON.stringify(profile));
-        this.profile$.next(profile);
+        this._setProfile(profile);
         return profile;
       }
     });
   }
 
   private _setSession(authResult) {
-    // Save session data and update login status subject
+    // Save session data
     localStorage.setItem('expires_at', (authResult.expiresIn * 1000 + Date.now()).toString());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
@@ -123,7 +131,8 @@ export class AuthService {
   get authenticated() : boolean {
     // Check if current date is greater than expiration --???and user is currently
     // logged in???--
-    const OK: boolean = (Date.now() < this.expiresAt); // && this.loggedIn;
+    // const OK: boolean = (Date.now() < this.expiresAt); // && this.loggedIn;
+    const OK = this.loggedIn$.getValue();
     return OK;
   }
 
