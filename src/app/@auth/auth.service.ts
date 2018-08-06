@@ -67,13 +67,15 @@ export class AuthService {
   }
 
   handleAuthResult(err, authResult) {
+    if (err) {
+      console.error(`Error: ${err.error}`);
+    }
     if (authResult && authResult.accessToken) {
-      window.location.hash = '';
+      // window.location.hash = '';
       this.getUserInfo(authResult);
       this._setSession(authResult);
       this._setLoggedIn(true);
-    } else if (err) {
-      console.error(`Error: ${err.error}`);
+    } else {
       this._setLoggedIn((Date.now() < this.expiresAt));
     }
   }

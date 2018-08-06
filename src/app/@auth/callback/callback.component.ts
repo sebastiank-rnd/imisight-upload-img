@@ -18,13 +18,11 @@ export class CallbackComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loggedInSub = this.auth.loggedIn$.subscribe(loggedIn => {
-      return this.router.navigate(['/pages/dashboard'])
-
-      //  if (loggedIn) {
-      //    return this.router.navigate(['/pages/dashboard'])
-      //  } else {
-      //    return null;
-      //  }
+       if (loggedIn) {
+         return this.router.navigate(['/pages/upload'])
+       } else {
+        return this.router.navigate(['/pages'])
+      }
     });
   }
 
