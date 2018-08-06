@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-// import { ThemeModule } from '../@theme/theme.module';
-
 import { AuthService } from './auth.service';
 import { TokenInterceptor } from './token-interceptor';
 import { AuthComponent } from './auth.component';
