@@ -1,6 +1,6 @@
 [template]
 src = "environment.prod.ts.tmpl"
-dest = "/opt/imisight-upload-img/src/environments/environment.prod.ts"
+dest = "/opt/imisight-sat-upload/src/environments/environment.prod.ts"
 keys = [
 	"/imisight/gatewayUrl",
   "/imisight/auth0/clientId",
