@@ -1,5 +1,5 @@
 {
-  "name": "imisight-upload-img",
+  "name": "imisight-sat-upload",
   "version": "1.0.0",
   "license": "MIT",
   "repository": {
@@ -23,7 +23,7 @@
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",
-    "lint:fix": "ng lint imisight-upload-img --fix",
+    "lint:fix": "ng lint imisight-sat-upload --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
     "lint:ci": "npm run lint && npm run lint:styles",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
@@ -32,8 +32,8 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "build-docker": "docker build -t imisight-upload-img .",
-    "start-docker": "docker run -it -p 4200:4200 -v ${PWD}:/opt/imisight-upload-img --env-file ./env.list --rm imisight-upload-img"
+    "build-docker": "docker build -t imisight-sat-upload .",
+    "start-docker": "docker run -it -p 4200:4200 --env-file ./env.list --rm imisight-sat-upload"
   },
   "dependencies": {
     "@agm/core": "1.0.0-beta.2",

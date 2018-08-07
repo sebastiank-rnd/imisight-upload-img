@@ -1,9 +1,9 @@
-FROM node:9.6.1
+FROM node:10.6.0
 
 #sudo
 RUN apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*
 
-ENV DIRPATH /opt/imisight-upload-img
+ENV DIRPATH /opt/imisight-sat-upload
 WORKDIR .
 
 # CONFD
@@ -26,9 +26,11 @@ ENV PATH $PATH:${DIRPATH}/node_modules/.bin
 
 # If you are building your code for production
 # RUN npm install --only=produ
-RUN npm i npm@latest -g
+# RUN npm i npm@latest -g
 RUN npm install -g @angular/cli@6.0.8
+# RUN npm install node-sass
 RUN npm install
+
 
 COPY . ${DIRPATH}
 RUN chmod +x ${DIRPATH}/run.sh
