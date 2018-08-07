@@ -30,12 +30,12 @@ export class AppComponent implements OnInit {
       filter(loggedIn => loggedIn),
       map(() => MENU_ITEMS
         .map<NbMenuItem>(item => {
-          if (item.title==='Auth') {
-            return {
-              ... item,
-              children: item.children.filter(child => child.title==='Logout'),
-            };
-          }
+          // if (item.title==='Auth') {
+          //   return {
+          //     ... item,
+          //     children: item.children.filter(child => child.title==='Logout'),
+          //   };
+          // }
 
           return item;
         })
@@ -46,12 +46,12 @@ export class AppComponent implements OnInit {
       filter(loggedIn => !loggedIn),
       map(() => MENU_ITEMS
         .map<NbMenuItem>(item => {
-          if (item.title==='Auth') {
-            return {
-              ... item,
-              children: item.children.filter(child => child.title==='Login'),
-            };
-          }
+          // if (item.title==='Auth') {
+          //   return {
+          //     ... item,
+          //     children: item.children.filter(child => child.title==='Login'),
+          //   };
+          // }
 
           return item;
         })
